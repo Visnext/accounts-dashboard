@@ -1,7 +1,7 @@
 body {
   margin: 0 !important;
   background: #eaeaea;
-  font-family: 'Ruda', sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	.theme-bg {
 	  background: #4ECDC4;
 	  border-bottom: 1px solid #393d46;
@@ -90,7 +90,71 @@ body {
 	}
 	.content-container {
 		margin-top: 60px;
-    display: inline-block;
+    display: block;
+    .content-wrapper {
+    	display: block;
+    	header {
+    		display: flex;
+    		justify-content: space-between;
+    		background: rgba(255,255,255,0.6);
+    		padding: 20px;
+    		h1 {
+    			font-weight: 300;
+    			margin: 0;
+    		}
+    		.add-btn {
+    			display: flex;
+    			font-size: 18px;
+			    padding: 8px 16px;
+			    border-radius: 4px;
+			    color: #fff;
+			    background-color: #4ECDC4;
+			    font-weight: 700;
+    		}
+    	}
+    	.table-form-container {
+        margin: 20px;
+        background: rgba(255,255,255,0.75);
+        padding: 10px;
+        .table-filter {
+        	margin: 10px;
+        }
+        table {
+        	width: 100%;
+        	tbody {
+        		tr:nth-of-type(odd) {
+	    				background-color: rgba(0,0,0,0.02);
+						}
+	        	tr {
+	        		height: 60px;
+	        		.actions-column {
+								display: flex;
+								justify-content: space-evenly;
+							}
+	        	}
+					}
+        }
+        form {
+        	.price-box {
+        		margin: 20px;
+        		text-align: center;
+        	}
+        	.subform-container {
+        		width: 50%;
+        		margin: 0 auto 20px;
+        		border: 1px solid #888888;
+        		padding: 10px;
+        		border-radius: 5px;
+        		@media (max-width: 768px) {
+				    	width: 90%;
+				    }
+				    h3 {
+				    	text-align: center;
+				    }
+        	}
+        }
+    	}
+    }
 	}
 	.with-sidebar {
 		margin-left: 210px;

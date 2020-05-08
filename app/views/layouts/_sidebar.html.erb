@@ -3,35 +3,29 @@
     <!-- sidebar menu start-->
     <ul class="sidebar-menu">
       <h5 class="centered">Admin</h5>
-      <li class="sidebar-tab">
-        <a href="javascript:;">
+      <li class="sidebar-tab <%=is_active('inventory_items')%>">
+      	<%= link_to root_path, :method=> "GET" do%>
           <i class="fa fa-dashboard"></i>
-          <span>Dashboard</span>
-        </a>
+          Inventory
+        <% end %>
+      </li>
+      <li class="sidebar-tab <%=is_active('sellers')%>">
+      	<%= link_to sellers_path, :method=> "GET" do%>
+          <i class="fa fa-users"></i>
+          Sellers
+        <% end %>
       </li>
       <li class="sidebar-tab">
         <a href="javascript:;">
-          <i class="fa fa-desktop"></i>
-          <span>Option 1</span>
+          <i class="fa fa-users"></i>
+          Buyers
         </a>
       </li>
-      <li class="sidebar-tab">
-        <a href="javascript:;">
-          <i class="fa fa-desktop"></i>
-          <span>Option 2</span>
-        </a>
-      </li>
-      <li class="sidebar-tab">
-        <a href="javascript:;">
-          <i class="fa fa-desktop"></i>
-          <span>Option 3</span>
-        </a>
-      </li>
-      <li class="sidebar-tab">
-        <a href="javascript:;">
-          <i class="fa fa-desktop"></i>
-          <span>Option 4</span>
-        </a>
+      <li class="sidebar-tab <%=is_active('payables')%>">
+        <%= link_to payables_path, :method=> "GET" do%>
+          <i class="fa fa-credit-card"></i>
+          Payables
+        <% end %>
       </li>
     </ul>
     <!-- sidebar menu end-->

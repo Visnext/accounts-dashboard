@@ -1,0 +1,38 @@
+<%= form_with url: "/inventory_items/#{@inventory_item.id}/purchase_recipts" do |f| %>
+	<h3>Seller Details</h3>
+	<div id="seller-selector">
+		<label for="seller">Select Seller</label>
+		<div>
+			<%= f.collection_select :seller_id, Seller.order(:name), :id, :name, include_blank: true %>
+			<span id="show-seller-form" class="link-view">or create new seller</span>
+		</div>
+	</div>
+	<div id="hidden-seller-form" class="hide-content">
+		<%= f.fields_for :seller do |s| %>
+			<label for="name">Name</label>
+			<%= s.text_field :name %>
+			<label for="email">Email</label>
+			<%= s.text_field :email %>
+			<label for="country">Country</label>
+			<%= s.text_field :country %>
+			<label for="phone">Phone</label>
+			<%= s.text_field :phone %>
+		<% end %>
+		<div id="show-seller-selecter" class="link-view centered">
+			select from existing seller
+		</div>
+	</div>
+	<h3>Purchase Details</h3>
+	<%= f.hidden_field :name, :value => @inventory_item.name %>
+	<label for="quantity">Quantity(in lbs)</label>
+  <%= f.number_field :quantity, :id => "item-quantity" %>
+  <label for="price_per_lbs">Price(per lbs)</label>
+  <%= f.number_field :price_per_lbs, :id => "item-price" %>
+  <div class="price-box">Total Price: 
+  	<span id="item-total-price"></span>
+  </div>
+  <div class="centered">
+ 		<%= f.submit 'Purchase' %>
+ 	<%= link_to "Cancel", inventory_items_path, :class => "form-cancel-btn" %>
+ 	</div>
+<% end %>

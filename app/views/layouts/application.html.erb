@@ -13,6 +13,11 @@
     <%= render "layouts/header" %>
     <%= render "layouts/sidebar" %>
     <div id="main-content" class="content-container with-sidebar">
+    	<% flash.each do |type, msg| %>
+		  <div class="alert alert-info">
+		    <%= msg %>
+		  </div>
+		<% end %>
       <%= yield %>
     </div>
   </body>

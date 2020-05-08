@@ -1,0 +1,44 @@
+<div class="content-wrapper">
+	<header>
+		<div>
+			<h1>Your Inventory</h1>
+		</div>
+		<div>
+			<%= link_to 'Add new item to inventory', new_inventory_item_path, :method=> "GET", class: "add-btn"%>
+		</div>
+	</header>
+	<div class="table-form-container">
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th><th>Quantity</th><th>Price Per LBS</th>
+					<th>Total Price</th><th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if @inventory_items %>
+					<% @inventory_items.each do |item| %>
+	  				<tr> 
+	  					<td><%= item.name %></td><td><%= item.quantity %></td>
+	  					<td><%= item.price_per_lbs %></td><td>
+	  						<%= item.quantity * item.price_per_lbs %></td>
+	  					<td>
+	  						<div class="actions-column">
+		  						<%= link_to edit_inventory_item_path(item.id) do%>
+		  							<i class="fa fa-edit action-item"></i>
+		  						<% end %>
+		  						<%= link_to new_inventory_item_purchase_recipt_path(item.id) do%>
+		  							<i class="fa fa-shopping-cart action-item"></i>
+		  						<% end %>
+		  						<%= link_to "inventory_items/#{item.id}", data: {:confirm => 'Are you sure?'}, method: :delete do%>
+		  							<i class="fa fa-trash"></i>
+		  						<% end %>
+		  					</div>
+	  					</td>
+	  				</tr>
+					<% end %>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
