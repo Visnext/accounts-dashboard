@@ -3,7 +3,6 @@ class PurchaseRecipt < ApplicationRecord
 
 	validates :name, :quantity, :price_per_lbs, :seller_id, presence: true
 
-	has_one :payable
 	belongs_to :seller
 	
 	after_create :update_inventory
@@ -17,8 +16,8 @@ class PurchaseRecipt < ApplicationRecord
 	end
 
 	def add_payable
-		Payable.create(amount: self.quantity * self.price_per_lbs, 
-									  seller_id: self.seller_id,
-									  purchase_recipt_id: self.id)
+		Payment.create(amount: self.quantity * self.price_per_lbs, 
+									  paymentable_id: self.seller.id,
+									  paymentable_type: self.seller.class.name)
 	end
 end

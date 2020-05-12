@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_08_123030) do
+ActiveRecord::Schema.define(version: 2020_05_12_103124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,16 +23,15 @@ ActiveRecord::Schema.define(version: 2020_05_08_123030) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "payables", force: :cascade do |t|
+  create_table "payments", force: :cascade do |t|
     t.float "amount"
-    t.boolean "paid", default: false
-    t.datetime "paid_at"
-    t.bigint "seller_id"
-    t.bigint "purchase_recipt_id"
+    t.boolean "cleared", default: false
+    t.datetime "cleared_at"
+    t.string "paymentable_type"
+    t.bigint "paymentable_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["purchase_recipt_id"], name: "index_payables_on_purchase_recipt_id"
-    t.index ["seller_id"], name: "index_payables_on_seller_id"
+    t.index ["paymentable_type", "paymentable_id"], name: "index_payments_on_paymentable_type_and_paymentable_id"
   end
 
   create_table "purchase_recipts", force: :cascade do |t|

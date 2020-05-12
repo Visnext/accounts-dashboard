@@ -8,10 +8,8 @@ class PurchaseReciptsController < ApplicationController
 	def create
 		if params[:seller_id].present?
 			@purchase_recipt = PurchaseRecipt.new(recipt_params)
-			debugger
 		else
 			@seller = Seller.new(seller_params)
-			debugger
 			@purchase_recipt = PurchaseRecipt.new(recipt_params_without_seller)
 			if @seller.save				
 				@purchase_recipt[:seller_id] = @seller.id

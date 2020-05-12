@@ -1,0 +1,58 @@
+<div class="content-wrapper">
+	<header>
+		<div>
+			<h1>Payments</h1>
+		</div>
+	</header>
+	<div class="table-form-container">
+		<div class="table-filter centered">
+			<%= link_to 'Both', payments_path %> | 
+			<%= link_to 'Payable', payments_path(:category => "payables") %> | 
+			<%= link_to 'Recievable', payments_path(:category => "recievables") %>
+		</div>
+		<div class="table-filter">
+			Filter:
+			<%= link_to 'All', payments_path(request.query_parameters.merge(:status => nil)) %> | 
+			<%= link_to 'Cleared', payments_path(request.query_parameters.merge(:status => "cleared")) %> | 
+			<%= link_to 'Unclear', payments_path(request.query_parameters.merge(:status => "unclear")) %>
+		</div>
+		<table>
+			<thead>
+				<tr>
+					<th>Category</th><th>To</th><th>Amount</th><th>Cleared</th>
+					<th>Cleared Date</th><th>Purchase/Sell Date</th><th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if @payments %>
+					<% @payments.each do |payment| %>
+	  				<tr> 
+	  					<td><%= payment.paymentable_type === "Seller" ? "Payable" : "Recievable" %></td>
+	  					<td><%= payment.paymentable.name %></td>
+	  					<td><%= payment.amount %></td>
+	  					<td><%= payment.cleared %></td>
+	  					<td>
+	  						<% if payment.cleared %>
+	  							<%= payment.cleared_at.strftime("%m/%d/%y") %>
+	  						<% else %>
+	  							-
+	  						<% end %>
+	  					</td>
+	  					<td><%= payment.created_at.strftime("%m/%d/%y") %></td>
+	  					<td>
+	  						<div class="actions-column">
+	  							<% unless payment.cleared %>
+	  								<%= link_to payment.paymentable_type === "Seller" ? "Paid" : "Recieved", payment_clear_path(payment.id), method: "PUT", class: 'link-view' %>
+	  							<% end %>
+		  						<%= link_to "payments/#{payment.id}", data: {:confirm => 'Are you sure?'}, method: :delete do%>
+		  							<i class="fa fa-trash"></i>
+		  						<% end %>
+		  					</div>
+	  					</td>
+	  				</tr>
+					<% end %>
+				<% end %>	
+			</tbody>
+		</table>
+	</div>
+</div>

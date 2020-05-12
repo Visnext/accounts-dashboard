@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   resources :inventory_items do
   	resources :purchase_recipts
   end
-  resources :payables do
-  	put 'paid' => 'payables#paid'
+  resources :payments do
+  	put 'clear' => 'payments#cleared'
   end
 
   root :to => 'inventory_items#index'
