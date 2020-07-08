@@ -22,17 +22,178 @@
 			select from existing seller
 		</div>
 	</div>
-	<h3>Purchase Details</h3>
+<h3>Purchase Details</h3>
 	<%= f.hidden_field :name, :value => @inventory_item.name %>
-	<label for="quantity">Quantity(in lbs)</label>
-  <%= f.number_field :quantity, :id => "item-quantity" %>
+
+
+  <label for="quantity">Size of Bag(40)</label>
+  <label for="name">Quantity</label>
+  <input type="number" id="total_bag_40" ><br>
+  <label for="quantity">Size of Bag(20)</label>
+  <label for="name">Quantity</label>
+  <input type="number" id="total_bag_20" ><br>
+  <label for="quantity">Size of Bag(10)</label>
+  <label for="name">Quantity</label>
+  <input type="number" id="total_bag_10" ><br>
+  <label for="quantity">Size of Bag(2)</label>
+  <label for="name">Quantity</label>
+  <input type="number" id="total_bag_2" ><br>
+  <label for="quantity">Size of Bag(1)</label>
+  <label for="name">Quantity</label>
+  <input type="number" id="total_bag_1" ><br>
+
+  <label for="quantity">Quantity(in lbs)</label>
+  <div class="disabledbutton">
+  <%= f.number_field :quantity, :id => "item-quantity"%>
+	</div>
+
   <label for="price_per_lbs">Price(per lbs)</label>
   <%= f.number_field :price_per_lbs, :id => "item-price" %>
+  <%= f.hidden_field :bag_array, id: "bag_array" %>
   <div class="price-box">Total Price: 
   	<span id="item-total-price"></span>
   </div>
   <div class="centered">
- 		<%= f.submit 'Purchase' %>
+ 		<%= f.submit 'Purchase'%>
  	<%= link_to "Cancel", inventory_items_path, :class => "form-cancel-btn" %>
  	</div>
 <% end %>
+<style type="text/css">
+	#quantity {
+		width: 10%;
+	}
+	#total_bag{
+		width: 30%;
+	}
+	.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+</style>
+
+<script type="text/javascript">
+	var array = []
+	var total = 0
+
+	$("#total_bag_40").focusout(function(){
+		if ($("#item-quantity").val() == "")
+			total = ($("#total_bag_40").val() * 40);
+		else{
+			total = parseInt($("#item-quantity").val()) + ($("#total_bag_40").val() * 40);
+		}
+		var array_push = false
+		for( var i = 0; i < array.length; i++)
+		{
+			if (array[i][0] == 40)
+			{
+				array[i][1] = parseInt($("#total_bag_40").val())
+				array_push = true
+			}
+		}
+		if (array_push == false)
+		{
+			array.push([40,parseInt($("#total_bag_40").val())])
+		}
+		for( var i = 0; i < array.length; i++)
+		{
+			console.log(array[i][0])
+			console.log(array[i][1])
+			total += array[i][0] * array[i][1]
+		}
+		$("#bag_array").val(array)
+  	$("#item-quantity").val(total)
+	});
+
+	$("#total_bag_20").focusout(function(){
+		var array_push = false
+		for( var i = 0; i < array.length; i++)
+		{
+			if (array[i][0] == 20)
+			{
+				array[i][1] = parseInt($("#total_bag_20").val())
+				array_push = true
+			}
+		}
+		if (array_push == false)
+		{
+			array.push([20,parseInt($("#total_bag_20").val())])
+		}
+		for( var i = 0; i < array.length; i++)
+		{
+			total += array[i][0] * array[i][1]
+		}
+		$("#bag_array").val(array)
+  	$("#item-quantity").val(total)
+	});
+
+	$("#total_bag_10").focusout(function(){
+		var array_push = false
+		for( var i = 0; i < array.length; i++)
+		{
+			if (array[i][0] == 10)
+			{
+				array[i][1] = parseInt($("#total_bag_10").val())
+				array_push = true
+			}
+		}
+		if (array_push == false)
+		{
+			array.push([10,parseInt($("#total_bag_10").val())])
+		}
+		for( var i = 0; i < array.length; i++)
+		{
+			total += array[i][0] * array[i][1]
+		}
+		$("#bag_array").val(array)
+  	$("#item-quantity").val(total)
+	});
+
+	$("#total_bag_2").focusout(function(){
+		var array_push = false
+		for( var i = 0; i < array.length; i++)
+		{
+			if (array[i][0] == 2)
+			{
+				array[i][1] = parseInt($("#total_bag_2").val())
+				array_push = true
+			}
+		}
+		if (array_push == false)
+		{
+			array.push([2,parseInt($("#total_bag_2").val())])
+		}
+		for( var i = 0; i < array.length; i++)
+		{
+			total += array[i][0] * array[i][1]
+		}
+		$("#bag_array").val(array)
+  	$("#item-quantity").val(total)
+	});
+
+	$("#total_bag_1").focusout(function(){
+		var array_push = false
+		for( var i = 0; i < array.length; i++)
+		{
+			if (array[i][0] == 1)
+			{
+				array[i][1] = parseInt($("#total_bag_1").val())
+				array_push = true
+			}
+		}
+		if (array_push == false)
+		{
+			array.push([1,parseInt($("#total_bag_1").val())])
+		}
+		for( var i = 0; i < array.length; i++)
+		{
+			total += array[i][0] * array[i][1]
+		}
+		$("#bag_array").val(array)
+  	$("#item-quantity").val(total)
+	});
+
+	$("#item-price").focusout(function(){
+		console.log(array)
+	});
+
+</script>

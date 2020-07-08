@@ -1,8 +1,7 @@
 <%= form_with model: @inventory_item do |f| %>
 	<label for="name">Name</label>
 	<%= f.text_field :name %>
-	<label for="quantity">Quantity(in lbs)</label>
-  <%= f.number_field :quantity, :id => "item-quantity" %>
+	<%= f.hidden_field :quantity, id: "item-quantity" %>
   <label for="price_per_lbs">Price(per lbs)</label>
   <%= f.number_field :price_per_lbs, :id => "item-price" %>
   <div class="price-box">Calculated Total Price: 
@@ -17,3 +16,5 @@
 	  <%= link_to "Cancel", inventory_items_path, :class => "form-cancel-btn" %>
   </div>
 <% end %>
+
+

@@ -37,10 +37,10 @@ class PurchaseReciptsController < ApplicationController
 	end
 
 	def recipt_params
-		params.permit(:name, :quantity, :price_per_lbs, :seller_id, :inventory_item_id)
+		params.permit(:name, :bag_array, :quantity, :price_per_lbs, :seller_id, :inventory_item_id)
 	end
 
 	def recipt_params_without_seller
-		params.permit(:name, :quantity, :price_per_lbs, :inventory_item_id)
+		params.permit(:name, :bag_array, :quantity, :price_per_lbs, :inventory_item_id)
 	end
 end
