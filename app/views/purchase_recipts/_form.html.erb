@@ -31,16 +31,16 @@
   <input type="number" id="total_bag_40" ><br>
   <label for="quantity">Size of Bag(20)</label>
   <label for="name">Quantity</label>
-  <input type="number" id="total_bag_20" ><br>
+  <input type="number" id="total_bag_20" disabled><br>
   <label for="quantity">Size of Bag(10)</label>
   <label for="name">Quantity</label>
-  <input type="number" id="total_bag_10" ><br>
+  <input type="number" id="total_bag_10" disabled><br>
   <label for="quantity">Size of Bag(2)</label>
   <label for="name">Quantity</label>
-  <input type="number" id="total_bag_2" ><br>
+  <input type="number" id="total_bag_2" disabled><br>
   <label for="quantity">Size of Bag(1)</label>
   <label for="name">Quantity</label>
-  <input type="number" id="total_bag_1" ><br>
+  <input type="number" id="total_bag_1" disabled><br>
 
   <label for="quantity">Quantity(in lbs)</label>
   <div class="disabledbutton">
@@ -73,15 +73,16 @@
 
 <script type="text/javascript">
 	var array = []
-	var total = 0
+	
 
 	$("#total_bag_40").focusout(function(){
-		if ($("#item-quantity").val() == "")
-			total = ($("#total_bag_40").val() * 40);
-		else{
-			total = parseInt($("#item-quantity").val()) + ($("#total_bag_40").val() * 40);
-		}
+		var total = 0
 		var array_push = false
+
+		if ($("#total_bag_40").val() == "")
+		{
+			$("#total_bag_40").val(0);
+		}
 		for( var i = 0; i < array.length; i++)
 		{
 			if (array[i][0] == 40)
@@ -96,16 +97,20 @@
 		}
 		for( var i = 0; i < array.length; i++)
 		{
-			console.log(array[i][0])
-			console.log(array[i][1])
 			total += array[i][0] * array[i][1]
 		}
-		$("#bag_array").val(array)
-  	$("#item-quantity").val(total)
+		$("#bag_array").val(JSON.stringify(array));
+  	$("#item-quantity").val(total);
+  	$("#total_bag_20").prop('disabled', false);
 	});
 
 	$("#total_bag_20").focusout(function(){
 		var array_push = false
+		var total = 0
+		if ($("#total_bag_20").val() == "")
+		{
+			$("#total_bag_20").val(0);
+		}
 		for( var i = 0; i < array.length; i++)
 		{
 			if (array[i][0] == 20)
@@ -122,12 +127,18 @@
 		{
 			total += array[i][0] * array[i][1]
 		}
-		$("#bag_array").val(array)
+		$("#bag_array").val(JSON.stringify(array))
   	$("#item-quantity").val(total)
+  	$("#total_bag_10").prop('disabled', false);
 	});
 
 	$("#total_bag_10").focusout(function(){
 		var array_push = false
+		var total = 0
+		if ($("#total_bag_10").val() == "")
+		{
+			$("#total_bag_10").val(0);
+		}
 		for( var i = 0; i < array.length; i++)
 		{
 			if (array[i][0] == 10)
@@ -144,12 +155,18 @@
 		{
 			total += array[i][0] * array[i][1]
 		}
-		$("#bag_array").val(array)
+		$("#bag_array").val(JSON.stringify(array))
   	$("#item-quantity").val(total)
+  	$("#total_bag_2").prop('disabled', false);
 	});
 
 	$("#total_bag_2").focusout(function(){
 		var array_push = false
+		var total = 0
+		if ($("#total_bag_2").val() == "")
+		{
+			$("#total_bag_2").val(0);
+		}
 		for( var i = 0; i < array.length; i++)
 		{
 			if (array[i][0] == 2)
@@ -166,12 +183,18 @@
 		{
 			total += array[i][0] * array[i][1]
 		}
-		$("#bag_array").val(array)
+		$("#bag_array").val(JSON.stringify(array))
   	$("#item-quantity").val(total)
+  	$("#total_bag_1").prop('disabled', false);
 	});
 
 	$("#total_bag_1").focusout(function(){
 		var array_push = false
+		var total = 0
+		if ($("#total_bag_1").val() == "")
+		{
+			$("#total_bag_1").val(0);
+		}
 		for( var i = 0; i < array.length; i++)
 		{
 			if (array[i][0] == 1)
@@ -188,7 +211,7 @@
 		{
 			total += array[i][0] * array[i][1]
 		}
-		$("#bag_array").val(array)
+		$("#bag_array").val(JSON.stringify(array))
   	$("#item-quantity").val(total)
 	});
 

@@ -1,0 +1,36 @@
+<div class="content-wrapper">
+	<header>
+		<div>
+			<h1>Buyers List</h1>
+		</div>
+		<div>
+			<%= link_to 'Add New buyer', new_buyer_path, :method=> "GET", class: "add-btn"%>
+		</div>
+	</header>
+	<div class="table-form-container">
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th><th>Email</th><th>Phone</th><th>Country</th><th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if @buyers %>
+					<% @buyers.each do |buyer| %>
+	  				<tr> 
+	  					<td><%= buyer.name %></td><td><%= buyer.email %></td>
+	  					<td><%= buyer.phone %></td><td><%= buyer.country %></td>
+	  					<td>
+	  						<div class="actions-column">
+		  						<%= link_to "buyers/#{buyer.id}", data: {:confirm => 'Are you sure?'}, method: :delete do%>
+		  							<i class="fa fa-trash"></i>
+		  						<% end %>
+		  					</div>
+	  					</td>
+	  				</tr>
+					<% end %>
+				<% end %>	
+			</tbody>
+		</table>
+	</div>
+</div>

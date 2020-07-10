@@ -1,0 +1,79 @@
+<%= form_with url: "/inventory/#{@inventory_item.id}/sell" do |f| %>
+	<h3>Buyer Details</h3>
+	<div id="seller-selector	">
+		<label for="seller">Select Buyer</label>
+		<div>
+			<%= f.collection_select :buyer_id, Buyer.order(:name), :id, :name, include_blank: true %>
+			<%= link_to 'Create New Buyer', new_buyer_path %>
+		</div>
+	</div>
+	
+<h3>Sell Details</h3>
+	<%= f.hidden_field :name, :value => @inventory_item.name %>
+	<%= f.hidden_field :inventory_item_id, :value => @inventory_item.id %>
+	<label for="name">Available in Tons</label>
+  <input type="number" value="<%=(@inventory_item.quantity/2000).round(0)%>" class="inputField" disabled><br>
+
+  <label for="name">Available in 40lbs bags</label>
+  <input type="number" value="<%=(@inventory_item.quantity/40).round(0)%>" class="inputField" disabled><br>
+
+  
+  <label for="quantity">Unit</label>
+  <select id="unit" name="unit">
+	  <option value="ton">Ton</option>
+	  <option value="bag">Bag 40 lbs</option>
+	</select>
+
+	<br>
+  <label for="name">Quantity</label>
+  <input type="number" id="total_bag_40" ><br>
+  <%= f.hidden_field :quantity, :id => "item-quantity"%>
+
+
+  <label for="price_per_lbs">Price</label>
+  <input type="number" id="price_calculator" ><br>
+  <%= f.hidden_field :price_per_lbs, :id => "item-price", :class=> "inputField"%>
+
+  <div class="centered">
+ 		<%= f.submit 'Sell'%>
+ 	<%= link_to "Cancel", inventory_items_path, :class => "form-cancel-btn" %>
+ 	</div>
+<% end %>
+<style type="text/css">
+	#quantity {
+		width: 10%;
+	}
+	#total_bag{
+		width: 30%;
+	}
+	#unit_field{
+		width: 20%;
+	}
+	.inputField {
+		width: 20%;
+	}
+	.disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+}
+</style>
+<script type="text/javascript">
+	$('#total_bag_40').focusout(function(){
+		debugger
+		if ($('#unit').val() == "ton"){
+			$('#item-quantity').val($('#total_bag_40').val() * 2000)
+		}
+		else{
+			$('#item-quantity').val($('#total_bag_40').val() * 40)
+		}
+	});
+
+	$("#price_calculator").focusout(function(){
+		if ($('#unit').val() == "ton"){
+			$("#item-price").val($("#price_calculator").val()/2000)
+		}
+		else{
+			$("#item-price").val($("#price_calculator").val()/40)
+		}
+	});
+</script>

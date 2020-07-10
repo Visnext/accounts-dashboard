@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_08_144916) do
+ActiveRecord::Schema.define(version: 2020_07_09_143537) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "buyers", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.string "country"
+    t.string "phone"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "inventory_items", force: :cascade do |t|
     t.string "name"
@@ -21,6 +30,7 @@ ActiveRecord::Schema.define(version: 2020_07_08_144916) do
     t.float "price_per_lbs"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "bag_array", default: [], array: true
   end
 
   create_table "payments", force: :cascade do |t|
@@ -41,8 +51,19 @@ ActiveRecord::Schema.define(version: 2020_07_08_144916) do
     t.bigint "seller_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "bag_array", default: [], array: true
+    t.string "bag_array"
     t.index ["seller_id"], name: "index_purchase_recipts_on_seller_id"
+  end
+
+  create_table "sell_reciepts", force: :cascade do |t|
+    t.string "name"
+    t.string "unit"
+    t.integer "quantity"
+    t.float "price_per_lbs"
+    t.bigint "buyer_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["buyer_id"], name: "index_sell_reciepts_on_buyer_id"
   end
 
   create_table "sellers", force: :cascade do |t|

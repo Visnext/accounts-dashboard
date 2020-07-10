@@ -16,10 +16,10 @@
         <% end %>
       </li>
       <li class="sidebar-tab">
-        <a href="javascript:;">
-          <i class="fa fa-users"></i>
+        <%= link_to buyers_path do %>
+         <i class="fa fa-users"></i>
           Buyers
-        </a>
+        <% end %>
       </li>
       <li class="sidebar-tab <%=is_active('payments')%>">
         <%= link_to payments_path, :method=> "GET" do%>

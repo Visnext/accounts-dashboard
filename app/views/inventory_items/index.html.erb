@@ -13,8 +13,7 @@
 				<tr>
 					<th>Name</th>
 					<th>Quantity</th>
-					<th>Price Per LBS</th>
-					<th>Total Price</th>
+					<th>40 lbs Bags</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -22,9 +21,9 @@
 				<% if @inventory_items %>
 					<% @inventory_items.each do |item| %>
 	  				<tr> 
-	  					<td><%= item.name %></td><td><%= item.quantity %></td>
-	  					<td><%= item.price_per_lbs %></td><td>
-	  						<%= item.quantity * item.price_per_lbs %></td>
+	  					<td><%= item.name %></td>
+	  					<td><%= item.quantity %></td>
+	  					<td><%= (item.quantity/40).round(0) %></td>
 	  					<td>
 	  						<div class="actions-column">
 		  						<%= link_to edit_inventory_item_path(item.id) do%>
@@ -32,6 +31,9 @@
 		  						<% end %>
 		  						<%= link_to new_inventory_item_purchase_recipt_path(item.id) do%>
 		  							<i class="fa fa-shopping-cart action-item"></i>
+		  						<% end %>
+		  						<%= link_to sell_item_path(item.id) do%>
+		  							<i class="fa fa-cart-arrow-down"></i>
 		  						<% end %>
 		  						<%= link_to "inventory_items/#{item.id}", data: {:confirm => 'Are you sure?'}, method: :delete do%>
 		  							<i class="fa fa-trash"></i>

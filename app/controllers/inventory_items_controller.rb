@@ -49,7 +49,6 @@ class InventoryItemsController < ApplicationController
 
 	def store
 		recipt = PurchaseRecipt.new()
-		debugger
 	end
 
 private
