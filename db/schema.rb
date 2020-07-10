@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_09_143537) do
+ActiveRecord::Schema.define(version: 2020_07_10_143939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "banks", force: :cascade do |t|
+    t.string "name"
+    t.integer "current_balance"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "buyers", force: :cascade do |t|
     t.string "name"
@@ -22,6 +29,7 @@ ActiveRecord::Schema.define(version: 2020_07_09_143537) do
     t.string "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "amount_recievable", default: 0
   end
 
   create_table "inventory_items", force: :cascade do |t|
@@ -73,6 +81,21 @@ ActiveRecord::Schema.define(version: 2020_07_09_143537) do
     t.string "phone"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "amount_payable", default: 0
+  end
+
+  create_table "transactions", force: :cascade do |t|
+    t.string "to_type"
+    t.bigint "to_id"
+    t.string "from_type"
+    t.bigint "from_id"
+    t.integer "amount"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "to_name"
+    t.string "from_name"
+    t.index ["from_type", "from_id"], name: "index_transactions_on_from_type_and_from_id"
+    t.index ["to_type", "to_id"], name: "index_transactions_on_to_type_and_to_id"
   end
 
   create_table "users", force: :cascade do |t|

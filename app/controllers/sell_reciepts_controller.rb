@@ -5,16 +5,15 @@ class SellRecieptsController < ApplicationController
 	end
 
 	def create
-		debugger
 		if params[:buyer_id].present?
 			sell_reciept = SellReciept.new(sell_params)
 		else
-			redirect_to request.referrer, notice: sell_reciept.errors.full_messages.join(', ')
+			redirect_to request.referrer, notice: "Buyer not selected"
 		end
 		if sell_reciept.save!
 			redirect_to inventory_items_path, notice: "Item Purchased!"
 		else
-			redirect_to request.referrer, notice: sell_reciept.errors.full_messages.join(', ')
+			redirect_to request.referrer, notice: "Something went worng"
 		end
 	end
 		

@@ -23,7 +23,7 @@ class BuyersController < ApplicationController
 	def update
 		respond_to do |format|
 			if @seller.update(seller_params)
-	      format.html { redirect_to sellers_path, notice: "Seller Updated!" }
+	      format.html { redirect_to  buyers_path, notice: "Seller Updated!" }
 	    else
 	      format.html { redirect_to request.referrer, notice: "Something Went Wrong!" }
 	    end
@@ -33,7 +33,7 @@ class BuyersController < ApplicationController
 	def destroy
 		respond_to do |format|
 			if @buyer.delete
-	      format.html { redirect_to sellers_path, notice: "Seller Deleted!" }
+	      format.html { redirect_to buyers_path, notice: "Seller Deleted!" }
 	    else
 	      format.html { redirect_to request.referrer, notice: "Something Went Wrong!" }
 	    end

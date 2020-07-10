@@ -9,8 +9,16 @@ class SellReciept < ApplicationRecord
 
 	private
 		def remove_from_inventory
+			amount = 0
 			item = InventoryItem.find(inventory_item_id)
 			item.update(quantity: item.quantity - self.quantity)
+			buyer = Buyer.find(self.buyer_id)
+			if buyer.amount_recievable
+				amount = buyer.amount_recievable + (self.price_per_lbs * self.quantity)
+			else
+				amount = self.price_per_lbs * self.quantity
+			end
+			buyer.update(amount_recievable: amount)
 		end
 
 		def add_recieveable

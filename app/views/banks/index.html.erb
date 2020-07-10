@@ -1,0 +1,36 @@
+<div class="content-wrapper">
+	<header>
+		<div>
+			<h1>Banks List</h1>
+		</div>
+		<div>
+			<%= link_to 'Add New bank', new_bank_path, :method=> "GET", class: "add-btn"%>
+		</div>
+	</header>
+	<div class="table-form-container">
+		<table>
+			<thead>
+				<tr>
+					<th>Name</th><th>Current Balance</th><th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if @banks %>
+					<% @banks.each do |bank| %>
+	  				<tr> 
+	  					<td><%= bank.name %></td>
+	  					<td><%= bank.current_balance %></td>
+	  					<td>
+	  						<div class="actions-column">
+		  						<%= link_to "banks/#{bank.id}", data: {:confirm => 'Are you sure?'}, method: :delete do%>
+		  							<i class="fa fa-trash"></i>
+		  						<% end %>
+		  					</div>
+	  					</td>
+	  				</tr>
+					<% end %>
+				<% end %>	
+			</tbody>
+		</table>
+	</div>
+</div>

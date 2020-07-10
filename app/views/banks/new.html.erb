@@ -1,0 +1,19 @@
+<div class="content-wrapper">
+	<header>
+		<div>
+			<h1>Add New Buyer</h1>
+		</div>
+	</header>
+	<div class="table-form-container">
+		<%= form_with model: @bank do |f| %>
+			<label for="name">Name</label>
+			<%= f.text_field :name %>
+			<label for="current_balance">Current Balance</label>
+			<%= f.number_field :current_balance %>
+		  <div class="centered">
+			  	<%= f.submit 'Create'%>
+			  <%= link_to "Cancel", banks_path, :class => "form-cancel-btn" %>
+		  </div>
+		<% end %>
+	</div>
+</div>

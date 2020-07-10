@@ -1,0 +1,53 @@
+<div class="content-wrapper">
+	<header>
+		<div>
+			<h1>Receive Money From <%= @buyer.name %></h1>
+		</div>
+	</header>
+	<%= link_to 'Send To Bank', :class => "buttons"%>
+	<%= link_to 'Send To Seller', :class => "buttons"%>
+	<div class="table-form-container">
+		<%= form_with url: "/transactions/#{@buyer.id}/received" do |f| %>
+		
+
+			<label for="email">Select Seller to pay</label>
+			<%= f.collection_select :seller_id, Seller.order(:name, :amount_payable), :id, :name, include_blank: true %>
+			
+			<br>
+			<label for="amount">Enter Amount</label>
+			<%= f.number_field :amount, id: "amount_field" %>
+			<label id="error-msg">This buyer does not have enough receivable</label>
+		  <div class="centered">
+			  <%= f.submit 'Pay', id:"submitButton"%>
+			  <%= link_to "Cancel", buyers_path, :class => "form-cancel-btn" %>
+		  </div>
+		<% end %>
+	</div>
+</div>
+<style type="text/css">
+	#error-msg{
+		display: none;
+		color: red;
+	}
+	.buttons {
+		display: inline-block;
+    border: 1px solid;
+    padding: 6px 18px;
+    margin-top: 20px;
+    margin-left: 20px;
+    background-color: #fff;
+    margin-right: 20px;
+	}
+</style>
+<script type="text/javascript">
+	$("#amount_field").focusout(function(){
+		if (parseInt($("#amount_field").val()) > parseInt("<%= @buyer.amount_recievable %>")){
+			$("#error-msg").show()
+			$("#submitButton").prop('disabled', true)
+		}
+		else{
+			$("#error-msg").hide()
+			$("#submitButton").prop('disabled', false)
+		}
+	});
+</script>

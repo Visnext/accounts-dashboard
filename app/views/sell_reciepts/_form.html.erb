@@ -39,27 +39,9 @@
  	<%= link_to "Cancel", inventory_items_path, :class => "form-cancel-btn" %>
  	</div>
 <% end %>
-<style type="text/css">
-	#quantity {
-		width: 10%;
-	}
-	#total_bag{
-		width: 30%;
-	}
-	#unit_field{
-		width: 20%;
-	}
-	.inputField {
-		width: 20%;
-	}
-	.disabledbutton {
-    pointer-events: none;
-    opacity: 0.4;
-}
-</style>
+
 <script type="text/javascript">
 	$('#total_bag_40').focusout(function(){
-		debugger
 		if ($('#unit').val() == "ton"){
 			$('#item-quantity').val($('#total_bag_40').val() * 2000)
 		}
@@ -70,10 +52,10 @@
 
 	$("#price_calculator").focusout(function(){
 		if ($('#unit').val() == "ton"){
-			$("#item-price").val($("#price_calculator").val()/2000)
+			$("#item-price").val($("#price_calculator").val()/($('#total_bag_40').val() * 2000))
 		}
 		else{
-			$("#item-price").val($("#price_calculator").val()/40)
+			$("#item-price").val($("#price_calculator").val()/($('#total_bag_40').val() * 40))
 		}
 	});
 </script>

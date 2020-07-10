@@ -11,7 +11,12 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Name</th><th>Email</th><th>Phone</th><th>Country</th><th>Actions</th>
+					<th>Name</th>
+					<th>Email</th>
+					<th>Phone</th>
+					<th>Country</th>
+					<th>Amount Recievable</th>
+					<th>Actions</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -20,11 +25,13 @@
 	  				<tr> 
 	  					<td><%= buyer.name %></td><td><%= buyer.email %></td>
 	  					<td><%= buyer.phone %></td><td><%= buyer.country %></td>
+	  					<td><%= buyer.amount_recievable %></td>
 	  					<td>
 	  						<div class="actions-column">
 		  						<%= link_to "buyers/#{buyer.id}", data: {:confirm => 'Are you sure?'}, method: :delete do%>
 		  							<i class="fa fa-trash"></i>
 		  						<% end %>
+		  						<%= link_to 'Recieve', transactions_receive_money_path(buyer.id), :method=> "GET" %>
 		  					</div>
 	  					</td>
 	  				</tr>

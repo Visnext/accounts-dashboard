@@ -38,6 +38,13 @@ class PurchaseRecipt < ApplicationRecord
 			end
 		end
 		item.update(quantity: item.quantity + self.quantity, bag_array: bag_array)
+		seller = Seller.find(self.seller_id)
+			if seller.amount_payable
+				amount = seller.amount_payable + (self.price_per_lbs * self.quantity)
+			else
+				amount = self.price_per_lbs * self.quantity
+			end
+			seller.update(amount_payable: amount)
 	end
 
 	def add_payable
