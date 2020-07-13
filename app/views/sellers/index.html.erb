@@ -23,8 +23,10 @@
 				<% if @sellers %>
 					<% @sellers.each do |seller| %>
 	  				<tr> 
-	  					<td><%= seller.name %></td><td><%= seller.email %></td>
-	  					<td><%= seller.phone %></td><td><%= seller.country %></td>
+	  					<td><%= link_to seller.name, seller_path(seller.id) %></td>
+	  					<td><%= seller.email %></td>
+	  					<td><%= seller.phone %></td>
+	  					<td><%= seller.country %></td>
 	  					<td><%= seller.amount_payable %></td>
 	  					<td>
 	  						<div class="actions-column">

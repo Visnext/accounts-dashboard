@@ -13,16 +13,23 @@ class BuyersController < ApplicationController
 		end
 	end
 
+	def show
+		@buyer = Buyer.find(params[:id])
+		@transactions = Transaction.where(from_id: @buyer.id, from_type: "Buyer")
+		@payments = Payment.all.where(paymentable_type: "Buyer", paymentable_id: @buyer.id)
+	end
+
 	def index
 		@buyers = Buyer.all
 	end
 
 	def edit
+		@buyer = Buyer.find(params[:id])
 	end
 
 	def update
 		respond_to do |format|
-			if @seller.update(seller_params)
+			if @buyer.update(buyer_params)
 	      format.html { redirect_to  buyers_path, notice: "Seller Updated!" }
 	    else
 	      format.html { redirect_to request.referrer, notice: "Something Went Wrong!" }

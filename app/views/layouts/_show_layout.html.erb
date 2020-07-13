@@ -1,0 +1,47 @@
+<h2>Transactions</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>To</th>
+					<th>From</th>
+					<th>Amount</th>
+					<th>On</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if @transactions %>
+					<% @transactions.each do |transaction| %>
+	  				<tr> 
+	  					<td><%= transaction.to_name %></td>
+	  					<td><%= transaction.from_name %></td>
+	  					<td><%= transaction.amount %></td>
+	  					<td><%= transaction.created_at.strftime("%m/%d/%y") %></td>
+	  				</tr>
+					<% end %>
+				<% end %>	
+			</tbody>
+		</table>
+
+		<h2>Payments</h2>
+		<table>
+			<thead>
+				<tr>
+					<th>Category</th>
+					<th>To</th>
+					<th>Amount</th>
+					<th>Sell Date</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if @payments %>
+					<% @payments.each do |payment| %>
+	  				<tr> 
+	  					<td><%= payment.paymentable_type %></td>
+	  					<td><%= payment.paymentable.name %></td>
+	  					<td><%= payment.amount %></td>
+	  					<td><%= payment.created_at.strftime("%m/%d/%y") %></td>
+	  				</tr>
+					<% end %>
+				<% end %>	
+			</tbody>
+		</table>	

@@ -18,13 +18,14 @@
 				<% if @banks %>
 					<% @banks.each do |bank| %>
 	  				<tr> 
-	  					<td><%= bank.name %></td>
+	  					<td><%=link_to bank.name, bank_path(bank.id) %></td>
 	  					<td><%= bank.current_balance %></td>
 	  					<td>
 	  						<div class="actions-column">
 		  						<%= link_to "banks/#{bank.id}", data: {:confirm => 'Are you sure?'}, method: :delete do%>
 		  							<i class="fa fa-trash"></i>
 		  						<% end %>
+		  						<%= link_to 'Pay', transactions_pay_money_path(bank.id), :method=> "GET" %>
 		  					</div>
 	  					</td>
 	  				</tr>

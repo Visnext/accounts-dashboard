@@ -3,6 +3,13 @@ class BanksController < ApplicationController
 		@bank = Bank.new
 	end
 
+	def show
+		@bank = Bank.find(params[:id])
+		@transactions = Transaction.where(to_id: @bank.id, to_type: "Bank") + Transaction.where(from_id: @bank.id, from_type: "Bank")
+		@payments = Payment.all.where(paymentable_type: "Bank", paymentable_id: @bank.id)
+	end
+
+
 	def create
 		bank = Bank.new(params.require(:bank).permit(:name, :current_balance))
 		if bank.save!

@@ -14,6 +14,7 @@
 					<th>Name</th>
 					<th>Quantity</th>
 					<th>40 lbs Bags</th>
+					<th>Avg buying/lbs</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -24,6 +25,12 @@
 	  					<td><%= item.name %></td>
 	  					<td><%= item.quantity %></td>
 	  					<td><%= (item.quantity/40).round(0) %></td>
+	  					<td><% avg_price = 0 %>
+	  						<% PurchaseRecipt.where(name: item.name).pluck(:price_per_lbs, :quantity).each do |total| %>
+	  							<% avg_price += total[0] * total[1] %>
+	  						<% end %>
+	  						<%= (avg_price/PurchaseRecipt.where(name: item.name).sum(:quantity)).round(1) %>
+	  					</td>
 	  					<td>
 	  						<div class="actions-column">
 		  						<%= link_to edit_inventory_item_path(item.id) do%>

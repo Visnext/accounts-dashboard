@@ -5,6 +5,12 @@ class SellersController < ApplicationController
 		@sellers = Seller.all
 	end
 
+	def show
+		@seller = Seller.find(params[:id])
+		@transactions = Transaction.where(to_id: @seller.id, to_type: "Seller")
+		@payments = Payment.all.where(paymentable_type: "Seller", paymentable_id: @seller.id)
+	end
+
 	def new
 		@seller = Seller.new
 	end
@@ -41,6 +47,11 @@ class SellersController < ApplicationController
 	      format.html { redirect_to request.referrer, notice: "Something Went Wrong!" }
 	    end
 	  end
+	end
+
+	def find_seller
+		seller = Seller.find(params[:id])
+		render json: { seller_amount: seller.amount_payable}
 	end
 
 private

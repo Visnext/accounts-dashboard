@@ -4,14 +4,26 @@
 			<h1>Receive Money From <%= @buyer.name %></h1>
 		</div>
 	</header>
-	<%= link_to 'Send To Bank', :class => "buttons"%>
-	<%= link_to 'Send To Seller', :class => "buttons"%>
+	<button class="buttons" id="for_bank">Send To Bank</button>
+	<button class="buttons" id="for_seller">Send To Seller</button>
+	
 	<div class="table-form-container">
 		<%= form_with url: "/transactions/#{@buyer.id}/received" do |f| %>
 		
 
-			<label for="email">Select Seller to pay</label>
-			<%= f.collection_select :seller_id, Seller.order(:name, :amount_payable), :id, :name, include_blank: true %>
+			
+			<div id="for_seller_i">
+				<label for="email">Select Seller to pay</label>
+				<%= f.collection_select :seller_id, Seller.order(:name, :amount_payable), :id, :name, include_blank: true, id: 'seller_input' %>
+				<span id="my_p"></span>
+			</div>
+			<div id="for_bank_i">
+				<label for="email">Select Bank to add Money</label>
+				<%= f.collection_select :bank_id, Bank.order(:name), :id, :name, include_blank: true %>
+				
+			</div>
+
+
 			
 			<br>
 			<label for="amount">Enter Amount</label>
@@ -38,6 +50,23 @@
     background-color: #fff;
     margin-right: 20px;
 	}
+	#for_seller {
+		display: none;
+	}
+	#for_bank_i {
+		display: none;
+	}
+	#my_p {
+		border: 1px solid;
+		padding: 10px;
+		display: none;
+		margin-left: 20px;
+	}
+	
+		option{
+			height: 20px;
+		}
+	
 </style>
 <script type="text/javascript">
 	$("#amount_field").focusout(function(){
@@ -48,6 +77,38 @@
 		else{
 			$("#error-msg").hide()
 			$("#submitButton").prop('disabled', false)
+		}
+	});
+
+	$("#for_bank").click(function(){
+		$("#for_seller").toggle()
+		$("#for_bank").toggle()
+		$("#for_seller_i").toggle()
+		$("#for_bank_i").toggle()
+	});
+
+	$("#for_seller").click(function(){
+		$("#for_bank").toggle()
+		$("#for_seller").toggle()
+		$("#for_seller_i").toggle()
+		$("#for_bank_i").toggle()
+	});
+
+	$('#seller_id').change(function(){
+		if ($(this).children("option:selected").val() != ""){
+			jQuery.ajax({
+	    url: "/find_seller",
+	    type: "GET",
+	    data: {"id" : $(this).children("option:selected").val()},
+	    dataType: "json",
+	    success: function(data) {
+	      $("#my_p").text(data.seller_amount)
+	      $("#my_p").show()
+	    }
+	  });
+		}
+		else{
+			$("#my_p").hide()
 		}
 	});
 </script>

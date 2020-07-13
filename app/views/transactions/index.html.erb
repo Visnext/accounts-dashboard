@@ -1,0 +1,33 @@
+<div class="content-wrapper">
+	<header>
+		<div>
+			<h1>Transactions</h1>
+		</div>
+	</header>
+	<div class="table-form-container">
+		<table>
+			<thead>
+				<tr>
+					<th>From/to</th>
+					<th>To</th>
+					<th>From</th>
+					<th>Amount</th>
+					<th>On</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% if @transactions %>
+					<% @transactions.each do |transaction| %>
+	  				<tr> 
+	  					<td><%= transaction.from_type %> => <%= transaction.to_type %></td>
+	  					<td><%= transaction.to_name %></td>
+	  					<td><%= transaction.from_name %></td>
+	  					<td><%= transaction.amount %></td>
+	  					<td><%= transaction.created_at.strftime("%m/%d/%y") %></td>
+	  				</tr>
+					<% end %>
+				<% end %>	
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -12,10 +12,10 @@
       <li class="sidebar-tab <%=is_active('sellers')%>">
       	<%= link_to sellers_path, :method=> "GET" do%>
           <i class="fa fa-users"></i>
-          Sellers
+          Vendors
         <% end %>
       </li>
-      <li class="sidebar-tab">
+      <li class="sidebar-tab <%=is_active('buyers')%>">
         <%= link_to buyers_path do %>
          <i class="fa fa-users"></i>
           Buyers
@@ -27,10 +27,16 @@
           Payments
         <% end %>
       </li>
-      <li>
+      <li class="sidebar-tab <%=is_active('banks')%>">
         <%= link_to banks_path, :method=> "GET" do%>
-          <i class="fa fa-credit-card"></i>
+          <i class="fa fa-university" aria-hidden="true"></i>
           Bank
+        <% end %>
+      </li>
+      <li class="sidebar-tab <%=is_active('transactions')%>">
+        <%= link_to transactions_path, :method=> "GET" do%>
+          <i class="fa fa-money" aria-hidden="true"></i>
+          Transactions
         <% end %>
       </li>
     </ul>

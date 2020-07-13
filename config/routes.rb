@@ -19,4 +19,9 @@ Rails.application.routes.draw do
 
   get 'transactions/:id/receive_money' => 'transactions#receive_money', as: 'transactions_receive_money'
   post 'transactions/:id/received' => 'transactions#received'
+
+  get 'transactions/:id/pay_money' => 'transactions#pay_money', as: 'transactions_pay_money'
+  get 'transactions/index' => 'transactions#index', as: 'transactions'
+
+  get '/find_seller' => 'sellers#find_seller'
 end

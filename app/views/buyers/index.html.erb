@@ -23,15 +23,19 @@
 				<% if @buyers %>
 					<% @buyers.each do |buyer| %>
 	  				<tr> 
-	  					<td><%= buyer.name %></td><td><%= buyer.email %></td>
-	  					<td><%= buyer.phone %></td><td><%= buyer.country %></td>
+	  					<td><%= link_to buyer.name, buyer_path(buyer.id) %></td>
+	  					<td><%= buyer.email %></td>
+	  					<td><%= buyer.phone %></td>
+	  					<td><%= buyer.country %></td>
 	  					<td><%= buyer.amount_recievable %></td>
 	  					<td>
 	  						<div class="actions-column">
+	  						
+	  							<%= link_to 'Recieve', transactions_receive_money_path(buyer.id), :method=> "GET" %>
 		  						<%= link_to "buyers/#{buyer.id}", data: {:confirm => 'Are you sure?'}, method: :delete do%>
 		  							<i class="fa fa-trash"></i>
 		  						<% end %>
-		  						<%= link_to 'Recieve', transactions_receive_money_path(buyer.id), :method=> "GET" %>
+		  						
 		  					</div>
 	  					</td>
 	  				</tr>
